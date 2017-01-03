@@ -1,4 +1,4 @@
-package com.example.bort.androidkotlin
+package rkoeninger.droidbulb
 
 import android.content.pm.PackageManager
 import android.hardware.Camera
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
     var camRef: MutableList<Camera> = mutableListOf()
     var flashMode = Parameters.FLASH_MODE_AUTO
 
-    fun onLightToggle(view: View) {
+    fun onLightToggle(@Suppress("UNUSED_PARAMETER") view: View) {
         val butt = findViewById(R.id.toggleButton) as Button
         butt.text = if (butt.text == "On") "Off" else "On"
         val tv = findViewById(R.id.textView) as TextView
