@@ -2,4 +2,7 @@
 
 A cost-free, ad-free, open source flashlight app for Android.
 
-Android Studio project with the Kotlin language.
+Built with:
+
+  * Android Studio 2.3
+  * Kotlin 1.1.1
