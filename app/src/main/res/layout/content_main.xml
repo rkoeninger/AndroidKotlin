@@ -20,7 +20,7 @@
         android:scaleType="fitCenter"
         tools:layout_editor_absoluteX="11dp"
         tools:layout_editor_absoluteY="225dp"
-        app:srcCompat="@drawable/ic_droidbulb"
+        app:srcCompat="@drawable/ic_droidbulboff"
         android:background="@null"
         android:onClick="onLightToggle"
         android:id="@+id/toggleButton" />
