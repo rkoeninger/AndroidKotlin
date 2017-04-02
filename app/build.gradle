@@ -23,7 +23,6 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
 }
-
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:25.0.1'
