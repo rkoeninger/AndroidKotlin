@@ -10,46 +10,43 @@ import android.hardware.Camera.Parameters.FLASH_MODE_TORCH
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
+import rkoeninger.droidbulb.R.drawable.ic_droidbulb
+import rkoeninger.droidbulb.R.drawable.ic_droidbulboff
+import rkoeninger.droidbulb.R.id.toggleButton
+import rkoeninger.droidbulb.R.layout.activity_main
 
 class MainActivity : Activity() {
 
-    var camRef: Camera? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(activity_main)
     }
 
     override fun onDestroy() {
+        setLightOn(false)
         super.onDestroy()
-        camRef?.let {
-            it.parameters.flashMode = FLASH_MODE_AUTO
-            it.stopPreview()
-        }
-        camRef = null
     }
+
+    var camRef: Camera? = null
 
     fun onLightToggle(@Suppress("UNUSED_PARAMETER") view: View) {
-        val button = findViewById(R.id.toggleButton) as ImageButton
-
-        if (packageManager.hasSystemFeature(FEATURE_CAMERA_FLASH)) {
-            if (camRef == null) {
-                val camera = Camera.open()
-                camera.parameters.flashMode = FLASH_MODE_TORCH
-                camera.startPreview()
-                camRef = camera
-                setButtonIcon(true, button)
-            } else {
-                camRef?.parameters?.flashMode = FLASH_MODE_AUTO
-                camRef?.stopPreview()
-                camRef = null
-                setButtonIcon(false, button)
-            }
-        }
+        setLightOn(camRef == null)
     }
 
-    fun setButtonIcon(on: Boolean, button: ImageButton) {
-        val iconId = if (on) R.drawable.ic_droidbulb else R.drawable.ic_droidbulboff
-        button.setImageDrawable(resources.getDrawable(iconId))
+    fun setLightOn(on: Boolean) {
+        val button = findViewById(toggleButton) as ImageButton
+
+        if (on and packageManager.hasSystemFeature(FEATURE_CAMERA_FLASH)) {
+            val camera = Camera.open()
+            camera.parameters.flashMode = FLASH_MODE_TORCH
+            camera.startPreview()
+            button.setImageDrawable(resources.getDrawable(ic_droidbulb))
+            camRef = camera
+        } else {
+            camRef?.parameters?.flashMode = FLASH_MODE_AUTO
+            camRef?.stopPreview()
+            button.setImageDrawable(resources.getDrawable(ic_droidbulboff))
+            camRef = null
+        }
     }
 }
