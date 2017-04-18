@@ -5,3 +5,4 @@
 /.idea/libraries
 build/
 *jb_tmp__
+*jb_old__
